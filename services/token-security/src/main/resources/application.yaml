@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: hospital-manager/token-security
+
+server:
+  port: 8090

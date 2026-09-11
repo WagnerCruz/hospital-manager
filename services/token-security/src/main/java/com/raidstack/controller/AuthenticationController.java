@@ -1,0 +1,18 @@
+package com.raidstack.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/authenticate")
+public class AuthenticationController {
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    public String authenticate(Authentication authentication) {
+
+    }
+
+}
