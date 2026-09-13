@@ -1,9 +1,9 @@
 package com.raidstack.services.impl;
 
-import com.raidstack.dtos.AtualizarUsuarioPerfilDTO;
-import com.raidstack.dtos.AtualizarUsuarioSenhaDTO;
 import com.raidstack.dtos.AtualizarUsuarioDTO;
 import com.raidstack.dtos.AtualizarUsuarioExternoDTO;
+import com.raidstack.dtos.AtualizarUsuarioPerfilDTO;
+import com.raidstack.dtos.AtualizarUsuarioSenhaDTO;
 import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.entities.Perfil;
 import com.raidstack.entities.Usuario;

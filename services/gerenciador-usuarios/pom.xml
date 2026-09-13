@@ -5,31 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.raidstack</groupId>
-        <artifactId>hospital-manager</artifactId>
+        <artifactId>services</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>token-security</artifactId>
+    <artifactId>gerenciador-usuarios</artifactId>
+    <name>Gerenciador de Usuários</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-    </dependencies>
 
 </project>
