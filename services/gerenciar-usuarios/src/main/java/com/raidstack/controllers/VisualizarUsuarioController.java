@@ -23,7 +23,7 @@ public class VisualizarUsuarioController {
     //// TODO: IMPLEMENTAR DEPOIS UMA BUSCA PELO PRÓPRIO USUÁRIO
 
     @GetMapping("/{id}")
-    public ResponseEntity<VisualizarUsuarioDTO> visualizarUsuario(@PathVariable String id) {
+    public ResponseEntity<VisualizarUsuarioDTO> buscarUsuarioPorID(@PathVariable String id) {
         return ResponseEntity.ok(this.buscarUsuarioService.buscarUsuarioDTO(UUID.fromString(id)));
     }
 

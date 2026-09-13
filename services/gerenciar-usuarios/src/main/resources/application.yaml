@@ -6,6 +6,10 @@ spring:
   application:
     name: gerenciar-usuarios
 
+  messages:
+    basename: messages
+    encoding: UTF-8
+
   # Datasource Configuration
   sql.init:
     mode: always
