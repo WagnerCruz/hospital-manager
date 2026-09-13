@@ -5,7 +5,6 @@ import com.raidstack.enums.PerfilEnum;
 import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import com.raidstack.services.IValidarUsuarioService;
-import com.raidstack.services.exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

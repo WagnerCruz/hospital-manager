@@ -1,9 +1,9 @@
 package com.raidstack.controllers;
 
-import com.raidstack.dtos.AtualizarUsuarioPerfilDTO;
-import com.raidstack.dtos.AtualizarUsuarioSenhaDTO;
 import com.raidstack.dtos.AtualizarUsuarioDTO;
 import com.raidstack.dtos.AtualizarUsuarioExternoDTO;
+import com.raidstack.dtos.AtualizarUsuarioPerfilDTO;
+import com.raidstack.dtos.AtualizarUsuarioSenhaDTO;
 import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.services.IAtualizarUsuarioService;
 import jakarta.validation.Valid;

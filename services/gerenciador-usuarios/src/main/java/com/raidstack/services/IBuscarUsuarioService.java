@@ -3,7 +3,6 @@ package com.raidstack.services;
 import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.entities.Usuario;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 
