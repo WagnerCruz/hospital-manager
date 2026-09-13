@@ -1,30 +1,31 @@
 server:
   port: 8091
+  servlet.context-path: /gerenciar-usuarios
 
 spring:
   application:
-    name: hospital-manager/gerenciar-usuarios
+    name: gerenciar-usuarios
 
   # Datasource Configuration
   sql.init:
     mode: always
-    schema-locations: classpath:scripts/*.sql
-#    data-locations: classpath:scripts/*.sql
+    schema-locations: classpath:scripts/schemas/*.sql
+    data-locations: classpath:scripts/data/*.sql
   datasource:
-    url: jdbc:h2:mem:hospital-manager;INIT=CREATE SCHEMA IF NOT EXISTS hospital;MODE=PostgreSQL
-    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:hospital-manager;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
     username: admin
-    password: admin
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
-    jpa:
-      database-platform: org.hibernate.dialect.H2Dialect
-      hibernate:
-        ddl-auto: validate
-      show-sql: true
-
-senha.min: 8
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 
+logging:
+  level:
+    org.springframework.boot.autoconfigure.h2: DEBUG

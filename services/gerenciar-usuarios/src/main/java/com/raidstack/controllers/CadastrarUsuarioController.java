@@ -1,0 +1,32 @@
+package com.raidstack.controllers;
+
+import com.raidstack.dtos.CadastrarUsuarioDTO;
+import com.raidstack.dtos.CadastrarUsuarioExternoDTO;
+import com.raidstack.dtos.VisualizarUsuarioDTO;
+import com.raidstack.services.ICadastrarUsuarioService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/v1/cadastrar")
+public class CadastrarUsuarioController {
+
+    @Autowired
+    private ICadastrarUsuarioService cadastrarUsuarioService;
+
+    @PostMapping
+    public ResponseEntity<VisualizarUsuarioDTO> cadastrarUsuario(@RequestBody @Valid CadastrarUsuarioDTO usuario) {
+        return ResponseEntity.ok(this.cadastrarUsuarioService.cadastrarUsuarioDTO(usuario));
+    }
+
+    @PostMapping("/admin")
+    public ResponseEntity<VisualizarUsuarioDTO> cadastrarUsuarioExterno(@RequestBody @Valid CadastrarUsuarioExternoDTO usuario) {
+        return ResponseEntity.ok(this.cadastrarUsuarioService.cadastrarUsuarioExternoDTO(usuario));
+    }
+
+}

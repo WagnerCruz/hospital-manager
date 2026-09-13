@@ -1,5 +1,6 @@
 package com.raidstack.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,8 +27,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Perfil {
 
+    public Perfil(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false)
     private UUID id;
 
@@ -38,6 +44,7 @@ public class Perfil {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            schema = "hospital",
             name = "perfil_permissao",
             joinColumns = @JoinColumn(name = "perfil_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id")
