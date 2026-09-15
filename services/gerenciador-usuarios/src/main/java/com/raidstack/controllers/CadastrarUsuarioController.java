@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/cadastrar")
+@RequestMapping("/v1/cadastrar/usuario")
 public class CadastrarUsuarioController {
 
-    @Autowired
-    private ICadastrarUsuarioService cadastrarUsuarioService;
+    private final ICadastrarUsuarioService cadastrarUsuarioService;
+
+    public CadastrarUsuarioController(ICadastrarUsuarioService cadastrarUsuarioService) {
+        this.cadastrarUsuarioService = cadastrarUsuarioService;
+    }
 
     @PostMapping
     public ResponseEntity<VisualizarUsuarioDTO> cadastrarUsuario(@RequestBody @Valid CadastrarUsuarioDTO usuario) {

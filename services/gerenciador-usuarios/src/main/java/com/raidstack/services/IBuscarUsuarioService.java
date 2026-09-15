@@ -14,4 +14,8 @@ public interface IBuscarUsuarioService {
 
     Page<VisualizarUsuarioDTO> buscarUsuarios(int page, int size);
 
+    VisualizarUsuarioDTO buscarUsuarioPorEmail(String email);
+
+    VisualizarUsuarioDTO buscarUsuarioPorNome(String nome);
+
 }

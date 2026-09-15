@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/visualizar")
+@RequestMapping("/v1/visualizar/usuario")
 public class VisualizarUsuarioController {
 
     @Autowired
     private IBuscarUsuarioService buscarUsuarioService;
-
-    //// TODO: IMPLEMENTAR DEPOIS UMA BUSCA PELO PRÓPRIO USUÁRIO
 
     @GetMapping("/{id}")
     public ResponseEntity<VisualizarUsuarioDTO> buscarUsuarioPorID(@PathVariable String id) {
@@ -35,4 +33,13 @@ public class VisualizarUsuarioController {
         return ResponseEntity.ok(this.buscarUsuarioService.buscarUsuarios(page, size));
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<VisualizarUsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {
+        return ResponseEntity.ok(this.buscarUsuarioService.buscarUsuarioPorEmail(email));
+    }
+
+    @GetMapping("/nome")
+    public ResponseEntity<VisualizarUsuarioDTO> buscarUsuarioPorNome(@RequestParam("nome") String nome) {
+        return ResponseEntity.ok(this.buscarUsuarioService.buscarUsuarioPorNome(nome));
+    }
 }
