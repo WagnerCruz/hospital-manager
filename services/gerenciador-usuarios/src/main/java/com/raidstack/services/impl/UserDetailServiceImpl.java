@@ -1,23 +1,26 @@
 package com.raidstack.services.impl;
 
+import com.raidstack.entities.UsuarioAutenticado;
+import com.raidstack.repositories.IUsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
     private final Map<String, String> users = new HashMap<>();
+    private final IUsuarioRepository usuarioRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(PasswordEncoder passwordEncoder) {
+    public UserDetailServiceImpl(IUsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+        this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,10 +31,11 @@ public class UserServiceImpl implements UserDetailsService {
         if (encodedPassword == null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
-        return org.springframework.security.core.userdetails.User.withUsername(username)
-                .password(encodedPassword)
-                .authorities(new ArrayList<>())
-                .build();
+
+        return usuarioRepository.findUsuarioByLogin(username)
+                .map(UsuarioAutenticado::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado no banco de dados"));
+
     }
 
     public boolean validateUserCredentials(String username, String password) {
