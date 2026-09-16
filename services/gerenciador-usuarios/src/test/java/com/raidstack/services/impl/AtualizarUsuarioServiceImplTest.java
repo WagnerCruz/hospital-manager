@@ -108,7 +108,7 @@ class AtualizarUsuarioServiceImplTest {
     @DisplayName("Should throw exception when validation fails in atualizarUsuario")
     void testAtualizarUsuarioErroValidacao() {
         List<String> erros = List.of("Email inválido");
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioExistente));
         when(validarUsuarioService.validarCredenciaisUsuario(any(Usuario.class))).thenReturn(erros);
 
@@ -146,7 +146,7 @@ class AtualizarUsuarioServiceImplTest {
     @DisplayName("Should throw exception when user not found in atualizarUsuarioExterno")
     void testAtualizarUsuarioExternoUsuarioNaoEncontrado() {
         AtualizarUsuarioExternoDTO atualizarExternoDTO = criarAtualizarUsuarioExternoDTO();
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.empty());
 
         assertThrows(ResourceBadRequestException.class, () -> {
@@ -161,7 +161,7 @@ class AtualizarUsuarioServiceImplTest {
     void testAtualizarUsuarioExternoErroValidacaoCredenciais() {
         AtualizarUsuarioExternoDTO atualizarExternoDTO = criarAtualizarUsuarioExternoDTO();
         List<String> erros = List.of("Email já cadastrado");
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioExistente));
         when(validarUsuarioService.validarCredenciaisUsuario(any(Usuario.class))).thenReturn(erros);
 
@@ -178,7 +178,7 @@ class AtualizarUsuarioServiceImplTest {
         AtualizarUsuarioExternoDTO atualizarExternoDTO = criarAtualizarUsuarioExternoDTO();
         List<String> errosCredenciais = new ArrayList<>();
         List<String> errosPerfil = List.of("Perfil inválido");
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioExistente));
         when(validarUsuarioService.validarCredenciaisUsuario(any(Usuario.class))).thenReturn(errosCredenciais);
         when(validarUsuarioService.validarPerfisUsuario(any(Usuario.class))).thenReturn(errosPerfil);
@@ -197,13 +197,13 @@ class AtualizarUsuarioServiceImplTest {
         String senhaAtual = "senhaAtual123";
         String novaSenha = "novaSenha123";
         String senhaEncodada = "encodedSenha";
-        
+
         Usuario usuarioSenha = criarUsuarioComSenha(senhaEncodada);
         AtualizarUsuarioSenhaDTO atualizarSenhaDTO = new AtualizarUsuarioSenhaDTO(
-            loginUsuario,
-            senhaAtual,
-            novaSenha,
-            novaSenha
+                loginUsuario,
+                senhaAtual,
+                novaSenha,
+                novaSenha
         );
 
         when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
@@ -222,10 +222,10 @@ class AtualizarUsuarioServiceImplTest {
     @DisplayName("Should throw exception when user not found in atualizarUsuarioSenha")
     void testAtualizarUsuarioSenhaUsuarioNaoEncontrado() {
         AtualizarUsuarioSenhaDTO atualizarSenhaDTO = new AtualizarUsuarioSenhaDTO(
-            "login",
-            "senhaAtual",
-            "novaSenha",
-            "novaSenha"
+                "login",
+                "senhaAtual",
+                "novaSenha",
+                "novaSenha"
         );
 
         when(usuarioRepository.findUsuarioByLogin("login")).thenReturn(Optional.empty());
@@ -243,13 +243,13 @@ class AtualizarUsuarioServiceImplTest {
         String loginUsuario = "usuario@test.com";
         String senhaAtual = "senhaAtualErrada";
         String senhaEncodada = "senhaCorretaEncodada";
-        
+
         Usuario usuarioSenha = criarUsuarioComSenha(senhaEncodada);
         AtualizarUsuarioSenhaDTO atualizarSenhaDTO = new AtualizarUsuarioSenhaDTO(
-            loginUsuario,
-            senhaAtual,
-            "novaSenha",
-            "novaSenha"
+                loginUsuario,
+                senhaAtual,
+                "novaSenha",
+                "novaSenha"
         );
 
         when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
@@ -268,13 +268,13 @@ class AtualizarUsuarioServiceImplTest {
         String loginUsuario = "usuario@test.com";
         String senhaAtual = "senhaAtual123";
         String senhaEncodada = "encodedSenha";
-        
+
         Usuario usuarioSenha = criarUsuarioComSenha(senhaEncodada);
         AtualizarUsuarioSenhaDTO atualizarSenhaDTO = new AtualizarUsuarioSenhaDTO(
-            loginUsuario,
-            senhaAtual,
-            "novaSenha123",
-            "novaSenhaErrada"
+                loginUsuario,
+                senhaAtual,
+                "novaSenha123",
+                "novaSenhaErrada"
         );
 
         when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
@@ -312,7 +312,7 @@ class AtualizarUsuarioServiceImplTest {
     @DisplayName("Should throw exception when user not found in atualizarUsuarioPerfil")
     void testAtualizarUsuarioPerfilUsuarioNaoEncontrado() {
         AtualizarUsuarioPerfilDTO atualizarPerfilDTO = criarAtualizarUsuarioPerfilDTO();
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.empty());
 
         assertThrows(ResourceBadRequestException.class, () -> {
@@ -327,7 +327,7 @@ class AtualizarUsuarioServiceImplTest {
     void testAtualizarUsuarioPerfilErroValidacao() {
         AtualizarUsuarioPerfilDTO atualizarPerfilDTO = criarAtualizarUsuarioPerfilDTO();
         List<String> erros = List.of("Perfil não permitido");
-        
+
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioExistente));
         when(validarUsuarioService.validarPerfisUsuario(any(Usuario.class))).thenReturn(erros);
 
@@ -345,10 +345,10 @@ class AtualizarUsuarioServiceImplTest {
         Usuario usuarioExistente = criarUsuarioExistente();
 
         ReflectionTestUtils.invokeMethod(
-            atualizarUsuarioService,
-            "atualizarInformacoesUsuario",
-            usuarioAtualizado,
-            usuarioExistente
+                atualizarUsuarioService,
+                "atualizarInformacoesUsuario",
+                usuarioAtualizado,
+                usuarioExistente
         );
 
         assertEquals(usuarioAtualizado.getLogin(), usuarioExistente.getLogin());
@@ -363,9 +363,9 @@ class AtualizarUsuarioServiceImplTest {
 
         assertThrows(ResourceConflictException.class, () -> {
             ReflectionTestUtils.invokeMethod(
-                atualizarUsuarioService,
-                "verificarErrosValidacao",
-                erros
+                    atualizarUsuarioService,
+                    "verificarErrosValidacao",
+                    erros
             );
         });
     }
@@ -376,9 +376,9 @@ class AtualizarUsuarioServiceImplTest {
         List<String> erros = new ArrayList<>();
 
         ReflectionTestUtils.invokeMethod(
-            atualizarUsuarioService,
-            "verificarErrosValidacao",
-            erros
+                atualizarUsuarioService,
+                "verificarErrosValidacao",
+                erros
         );
     }
 
@@ -389,12 +389,12 @@ class AtualizarUsuarioServiceImplTest {
         Perfil perfilComId = criarPerfilPaciente();
 
         when(buscarPerfilService.buscarPerfilPorNome(PerfilEnum.PACIENTE.name()))
-            .thenReturn(perfilComId);
+                .thenReturn(perfilComId);
 
         ReflectionTestUtils.invokeMethod(
-            atualizarUsuarioService,
-            "atualizarIdsPerfis",
-            perfis
+                atualizarUsuarioService,
+                "atualizarIdsPerfis",
+                perfis
         );
 
         verify(buscarPerfilService, times(1)).buscarPerfilPorNome(anyString());
@@ -408,10 +408,10 @@ class AtualizarUsuarioServiceImplTest {
         String senhaTemporaria = "senhaTemp123456";
 
         ReflectionTestUtils.invokeMethod(
-            atualizarUsuarioService,
-            "enviarNotificacaoAtualizacaoUsuario",
-            usuario,
-            senhaTemporaria
+                atualizarUsuarioService,
+                "enviarNotificacaoAtualizacaoUsuario",
+                usuario,
+                senhaTemporaria
         );
 
         verify(kafkaUsuarioProducer, times(1)).enviarUsuarioAtualizado(any(UsuarioEvent.class));
@@ -433,37 +433,41 @@ class AtualizarUsuarioServiceImplTest {
 
     private AtualizarUsuarioDTO criarAtualizarUsuarioDTO() {
         return new AtualizarUsuarioDTO(
-            usuarioId,
-            "novoLogin",
-            "novoNome",
-            "novo@email.com"
+                usuarioId,
+                "novoLogin",
+                "novoNome",
+                "novo@email.com"
         );
     }
 
     private AtualizarUsuarioExternoDTO criarAtualizarUsuarioExternoDTO() {
         return new AtualizarUsuarioExternoDTO(
-            usuarioId,
-            "loginExterno",
-            "nomeExterno",
-            "externo@email.com",
-            List.of(PerfilEnum.PACIENTE)
+                usuarioId,
+                "loginExterno",
+                "nomeExterno",
+                "externo@email.com",
+                List.of(PerfilEnum.PACIENTE)
         );
     }
 
     private AtualizarUsuarioPerfilDTO criarAtualizarUsuarioPerfilDTO() {
         return new AtualizarUsuarioPerfilDTO(
-            usuarioId,
-            List.of(PerfilEnum.PACIENTE, PerfilEnum.MEDICO)
+                usuarioId,
+                List.of(PerfilEnum.PACIENTE, PerfilEnum.MEDICO)
         );
     }
 
     private VisualizarUsuarioDTO criarVisualizarUsuarioDTO() {
         return new VisualizarUsuarioDTO(
-            usuarioId,
-            "login",
-            "email@test.com",
-            "nome",
-            true
+                usuarioId,
+                "login",
+                "email@test.com",
+                "nome",
+                true,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                new ArrayList<>(),
+                new ArrayList<>()
         );
     }
 

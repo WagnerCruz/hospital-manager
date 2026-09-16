@@ -1,27 +1,27 @@
-# ----- 1° ETAPA: BUILD ----- #
-FROM maven:3.9.14-eclipse-temurin-21 AS build
+﻿FROM maven:3.9.14-eclipse-temurin-21 AS build
 
-WORKDIR /app
+WORKDIR /workspace
 
+COPY pom.xml ./
 COPY services/pom.xml ./services/pom.xml
+COPY services/gerenciador-usuarios/pom.xml ./services/gerenciador-usuarios/pom.xml
 COPY services/notificar-usuarios/pom.xml ./services/notificar-usuarios/pom.xml
 
-RUN mvn -f services/pom.xml dependency:go-offline
+RUN mvn -q -f pom.xml -pl services/notificar-usuarios -am dependency:go-offline -DskipTests
 
-COPY services/notificar-usuarios/src ./services/notificar-usuarios/src
+COPY . .
 
-RUN mvn -f services/pom.xml clean package -DskipTests
+RUN mvn -q -f pom.xml -pl services/notificar-usuarios -am clean package -DskipTests
 
-
-# ----- 2° ETAPA: RUNTIME ----- #
-FROM alpine/java:21-jdk
-
-ENV API_PORT_DEFAULT=${API_PORT_DEFAULT}
+FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-COPY --from=build /app/services/notificar-usuarios/target/notificar-usuarios-app.jar ./notificar-usuarios-app.jar
+ENV API_PORT_DEFAULT=8092
+ENV API_NAME_DEFAULT=notificar-usuarios
 
-EXPOSE ${API_PORT_DEFAULT}
+COPY --from=build /workspace/services/notificar-usuarios/target/*.jar /app/app.jar
 
-ENTRYPOINT ["java", "-jar", "notificar-usuarios-app.jar"]
+EXPOSE 8092
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

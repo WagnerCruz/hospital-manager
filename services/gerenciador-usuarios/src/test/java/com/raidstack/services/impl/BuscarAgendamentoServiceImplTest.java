@@ -2,6 +2,7 @@ package com.raidstack.services.impl;
 
 import com.raidstack.dtos.VisualizarAgendamentoDTO;
 import com.raidstack.entities.Agendamento;
+import com.raidstack.entities.Usuario;
 import com.raidstack.mappers.AgendamentoMapper;
 import com.raidstack.repositories.IAgendamentoRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -206,17 +207,19 @@ class BuscarAgendamentoServiceImplTest {
     private Agendamento criarAgendamento() {
         Agendamento agendamento = new Agendamento();
         agendamento.setId(agendamentoId);
-        agendamento.setData(LocalDateTime.now().plusDays(1));
-        agendamento.setAtivo(true);
-        agendamento.setDataCriacao(LocalDateTime.now());
-        agendamento.setDataAtualizacao(LocalDateTime.now());
+        agendamento.setDataAgendamento(LocalDateTime.now().plusDays(1));
+        agendamento.setStatus("A");
         return agendamento;
     }
 
     private VisualizarAgendamentoDTO criarAgendamentoDTO() {
         return new VisualizarAgendamentoDTO(
                 agendamentoId,
-                true
+                "VISUALIZAR AGENDAMENTO TESTE",
+                "A",
+                LocalDateTime.now().plusDays(1),
+                new Usuario(),
+                new Usuario()
         );
     }
 }

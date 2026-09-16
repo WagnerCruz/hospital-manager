@@ -1,33 +1,25 @@
 server:
-  port: 8091
+  port: ${API_PORT_DEFAULT:8091}
   servlet.context-path: /gerenciar-usuarios
 
 spring:
   application:
-    name: gerenciar-usuarios
+    name: ${API_NAME_DEFAULT:gerenciar-usuarios}
 
   messages:
     basename: messages
     encoding: UTF-8
 
   # Datasource Configuration
-  sql.init:
-    mode: always
-    schema-locations: classpath:scripts/schemas/*.sql
-    data-locations: classpath:scripts/data/*.sql
   datasource:
-    url: jdbc:h2:mem:hospital-manager;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
-    driverClassName: org.h2.Driver
-    username: admin
-    password:
+    url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:hospitalmanager}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_DB_USER:admin}
+    password: ${POSTGRES_DB_PASSWORD:admin}
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate.ddl-auto: update
-    show-sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    show-sql: false
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}

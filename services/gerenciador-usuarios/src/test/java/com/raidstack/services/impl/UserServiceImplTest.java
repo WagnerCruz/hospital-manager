@@ -1,5 +1,6 @@
 package com.raidstack.services.impl;
 
+import com.raidstack.repositories.IUsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,14 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@DisplayName("UserServiceImpl - Testes Unitários")
+@DisplayName("UserDetailServiceImpl - Testes Unitários")
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    private UserServiceImpl userService;
+    private UserDetailServiceImpl userService;
+
+    @Mock
+    private IUsuarioRepository usuarioRepository;
 
     private static final String USERNAME_TEST = "testuser";
     private static final String PASSWORD_TEST = "password123";
@@ -36,7 +40,7 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(passwordEncoder);
+        userService = new UserDetailServiceImpl(usuarioRepository, passwordEncoder);
         setupUsers();
     }
 
