@@ -1,4 +1,4 @@
-version: '3.8'
+﻿#version: '3.8'
 
 volumes:
   db_data: {}
@@ -33,15 +33,11 @@ services:
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
-
       KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@hospital-manager-kafka:9093
-
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -53,13 +49,14 @@ services:
       dockerfile: services/gerenciador-usuarios/Dockerfile
     container_name: gerenciador-usuarios-app
     ports:
-      - "${API_PORT}:8091"
-    restart: no
+      - "${API_PORT_GERENCIAR_USUARIOS}:8091"
+    restart: "no"
     networks:
       - application-network
     environment:
       API_PORT_DEFAULT: ${API_PORT_GERENCIAR_USUARIOS}
       API_NAME_DEFAULT: ${API_NAME_GERENCIAR_USUARIOS}
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       POSTGRES_DB_HOST: db_postgresql
       POSTGRES_DB_PORT: ${DB_PORT}
       POSTGRES_DB_NAME: ${DB_NAME}
@@ -67,20 +64,21 @@ services:
       POSTGRES_DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db_postgresql
-
-  notificar-usuarios-back-end:
-    build:
-      context: .
-      dockerfile: services/notificar-usuarios/Dockerfile
-    container_name: notificar-usuarios-app
-    ports:
-      - "${API_PORT}:8092"
-    restart: no
-    networks:
-      - application-network
-    environment:
-      API_PORT_DEFAULT: ${API_PORT_NOTIFICAR_USUARIOS}
-      API_NAME_DEFAULT: ${API_NAME_NOTIFICAR_USUARIOS}
-      BOOSTRATP_SERVERS: kafka:9092
-    depends_on:
       - kafka
+
+#  notificar-usuarios-back-end:
+#    build:
+#      context: .
+#      dockerfile: services/notificar-usuarios/Dockerfile
+#    container_name: notificar-usuarios-app
+#    ports:
+#      - "${API_PORT_NOTIFICAR_USUARIOS}:8092"
+#    restart: "no"
+#    networks:
+#      - application-network
+#    environment:
+#      API_PORT_DEFAULT: ${API_PORT_NOTIFICAR_USUARIOS}
+#      API_NAME_DEFAULT: ${API_NAME_NOTIFICAR_USUARIOS}
+#      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#    depends_on:
+#      - kafka

@@ -342,6 +342,8 @@ class BuscarUsuarioServiceImplTest {
                 "usuario@test.com",
                 "João Silva",
                 true,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
                 new ArrayList<>(),
                 new ArrayList<>()
         );

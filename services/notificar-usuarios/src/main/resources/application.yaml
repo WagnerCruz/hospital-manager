@@ -1,17 +1,17 @@
 server:
-  port: 8092
+  port: ${API_PORT_DEFAULT:8092}
   servlet.context-path: /notificar-usuarios
 
 spring:
   application:
-    name: notificar-usuarios
+    name: ${API_NAME_DEFAULT:notificar-usuarios}
 
   messages:
     basename: messages
     encoding: UTF-8
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 
 app:
   kafka:

@@ -3,6 +3,7 @@ package com.raidstack.services.impl;
 import com.raidstack.dtos.CadastrarAgendamentoDTO;
 import com.raidstack.dtos.VisualizarAgendamentoDTO;
 import com.raidstack.entities.Agendamento;
+import com.raidstack.entities.Usuario;
 import com.raidstack.kafka.events.AgendamentoEvent;
 import com.raidstack.kafka.producers.KafkaAgendamentoProducer;
 import com.raidstack.mappers.AgendamentoMapper;
@@ -86,7 +87,7 @@ class CadastrarAgendamentoServiceImplTest {
     @DisplayName("Deve cadastrar agendamento com data no futuro")
     void testCadastrarAgendamentoDataFuturo() {
         Agendamento agendamentoFuturo = criarAgendamento();
-        agendamentoFuturo.setData(LocalDateTime.now().plusDays(30));
+        agendamentoFuturo.setDataAgendamento(LocalDateTime.now().plusDays(30));
 
         when(agendamentoRepository.save(any(Agendamento.class)))
                 .thenReturn(agendamentoFuturo);
@@ -102,7 +103,7 @@ class CadastrarAgendamentoServiceImplTest {
     @DisplayName("Deve cadastrar agendamento com data próxima")
     void testCadastrarAgendamentoDataProxima() {
         Agendamento agendamentoProximo = criarAgendamento();
-        agendamentoProximo.setData(LocalDateTime.now().plusMinutes(30));
+        agendamentoProximo.setDataAgendamento(LocalDateTime.now().plusMinutes(30));
 
         when(agendamentoRepository.save(any(Agendamento.class)))
                 .thenReturn(agendamentoProximo);
@@ -175,24 +176,29 @@ class CadastrarAgendamentoServiceImplTest {
     private Agendamento criarAgendamento() {
         Agendamento agendamento = new Agendamento();
         agendamento.setId(agendamentoId);
-        agendamento.setData(LocalDateTime.now().plusDays(1));
-        agendamento.setAtivo(true);
-        agendamento.setDataCriacao(LocalDateTime.now());
-        agendamento.setDataAtualizacao(LocalDateTime.now());
+        agendamento.setDataAgendamento(LocalDateTime.now().plusDays(1));
+        agendamento.setStatus("A");
         return agendamento;
     }
 
     private CadastrarAgendamentoDTO criarCadastrarAgendamentoDTO() {
         return new CadastrarAgendamentoDTO(
-                LocalDateTime.now().plusDays(1)
+                "CADASTRAR AGENDAMENTO TESTE",
+                "A",
+                LocalDateTime.now().plusDays(1),
+                UUID.randomUUID(),
+                UUID.randomUUID()
         );
     }
 
     private VisualizarAgendamentoDTO criarVisualizarAgendamentoDTO() {
         return new VisualizarAgendamentoDTO(
                 agendamentoId,
+                "VISUALIZAR AGENDAMENTO TESTE",
+                "A",
                 LocalDateTime.now().plusDays(1),
-                true
+                new Usuario(),
+                new Usuario()
         );
     }
 }
