@@ -1,9 +1,12 @@
 package com.raidstack.controllers;
 
 import com.raidstack.services.impl.AutenticacaoServiceImpl;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +20,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public String authenticateUser(Authentication authentication) {
+    public String authenticateUser(@RequestParam String username, @RequestParam String password) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
         return autenticacaoService.authenticate(authentication);
     }
 
