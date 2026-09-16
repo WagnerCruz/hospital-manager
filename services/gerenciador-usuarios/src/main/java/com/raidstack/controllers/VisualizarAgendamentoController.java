@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/visualizar")
+@RequestMapping("/v1/visualizar/agendamento")
 public class VisualizarAgendamentoController {
 
     @Autowired

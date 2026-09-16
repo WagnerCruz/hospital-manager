@@ -6,6 +6,8 @@ import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.entities.Perfil;
 import com.raidstack.entities.Usuario;
 import com.raidstack.enums.PerfilEnum;
+import com.raidstack.kafka.events.UsuarioEvent;
+import com.raidstack.kafka.producers.KafkaUsuarioProducer;
 import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import com.raidstack.services.IBuscarPerfilService;
@@ -40,6 +42,9 @@ public class CadastrarUsuarioServiceImpl implements ICadastrarUsuarioService {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
+    @Autowired
+    private KafkaUsuarioProducer kafkaUsuarioProducer;
+
     public VisualizarUsuarioDTO cadastrarUsuarioDTO(CadastrarUsuarioDTO cadastrarUsuarioDTO) {
         Usuario usuarioNovo = UsuarioMapper.INSTANCE.cadastrarUsuarioDTOToUsuario(cadastrarUsuarioDTO);
 
@@ -66,10 +71,10 @@ public class CadastrarUsuarioServiceImpl implements ICadastrarUsuarioService {
         this.atualizarIdsPerfis(usuarioNovo.getPerfis());
 
         String senhaTemporaria = GeradorSenhaTemporaria.generate(TAMANHO_SENHA_TEMPORARIA);
-        //// TODO: ENVIAR NOTIFICAÇÃO DE SENHA TEMPORÁRIA PARA TROCA PELO SERVIÇO DE NOTIFICAÇÃO
         usuarioNovo.setSenha(this.passwordEncoder.encode(senhaTemporaria));
 
         Usuario usuarioSalvo = usuarioRepository.save(usuarioNovo);
+        this.enviarNotificacaoCriacaoUsuario(usuarioSalvo, senhaTemporaria);
 
         return UsuarioMapper.INSTANCE.usuarioToVisualizarUsuarioDTO(usuarioSalvo);
     }
@@ -91,7 +96,10 @@ public class CadastrarUsuarioServiceImpl implements ICadastrarUsuarioService {
         }
     }
 
-
-
+    private void enviarNotificacaoCriacaoUsuario(Usuario usuario, String senhaTemporaria) {
+        UsuarioEvent usuarioEvent = UsuarioMapper.INSTANCE.usuarioToUsuarioEvent(usuario);
+        usuarioEvent.setSenha(senhaTemporaria);
+        this.kafkaUsuarioProducer.enviarUsuarioCriado(usuarioEvent);
+    }
 
 }

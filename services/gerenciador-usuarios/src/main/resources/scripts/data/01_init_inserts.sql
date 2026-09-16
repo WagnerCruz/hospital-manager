@@ -7,6 +7,13 @@
 --     (gen_random_uuid(), 'MEDICO', 'Médico'),
 --     (gen_random_uuid(), 'ENFERMEIRO', 'Enfermeiro');
 
+INSERT INTO hospital.usuarios (id, login, nome, email, senha, ativo)
+VALUES
+    (RANDOM_UUID(), 'admin', 'Administrador', 'admin@example.com', 'abcd1234', true),
+    (RANDOM_UUID(), 'paciente', 'Paciente', 'paciente@example.com', 'paciente01', true),
+    (RANDOM_UUID(), 'medico', 'Médico', 'medico@example.com', 'medico01', true),
+    (RANDOM_UUID(), 'enfermeiro', 'Enfermeiro', 'enfermeiro@example.com', 'enfermeiro01', true);
+
 INSERT INTO hospital.perfis (id, nome, descricao)
 VALUES
     (RANDOM_UUID(), 'ADMINISTRADOR', 'Administrador'),

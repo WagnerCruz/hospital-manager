@@ -10,6 +10,7 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, UUID> {
 
     Optional<Usuario> findUsuarioByEmail(String email);
     Optional<Usuario> findUsuarioByLogin(String login);
+    Optional<Usuario> findUsuarioByNome(String nome);
 
     boolean existsByLogin(String login);
 

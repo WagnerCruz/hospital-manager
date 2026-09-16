@@ -36,4 +36,18 @@ public class BuscarUsuarioServiceImpl implements IBuscarUsuarioService {
         return UsuarioMapper.INSTANCE.usuarioToVisualizarUsuarioDTO(usuariosPage);
     }
 
+    @Override
+    public VisualizarUsuarioDTO buscarUsuarioPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findUsuarioByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado, email [" + email + "]"));
+        return UsuarioMapper.INSTANCE.usuarioToVisualizarUsuarioDTO(usuario);
+    }
+
+    @Override
+    public VisualizarUsuarioDTO buscarUsuarioPorNome(String nome) {
+        Usuario usuario = usuarioRepository.findUsuarioByNome(nome)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado, nome [" + nome + "]"));
+        return UsuarioMapper.INSTANCE.usuarioToVisualizarUsuarioDTO(usuario);
+    }
+
 }

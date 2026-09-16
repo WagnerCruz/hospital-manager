@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/cadastrar")
+@RequestMapping("/v1/cadastrar/agendamento")
 public class CadastrarAgendamentoController {
 
-    @Autowired
-    private ICadastrarAgendamentoService cadastrarAgendamentoService;
+    private final ICadastrarAgendamentoService cadastrarAgendamentoService;
+
+    public CadastrarAgendamentoController(ICadastrarAgendamentoService cadastrarAgendamentoService) {
+        this.cadastrarAgendamentoService = cadastrarAgendamentoService;
+    }
 
     @PostMapping
     public ResponseEntity<VisualizarAgendamentoDTO> cadastrarAgendamento(@RequestBody @Valid CadastrarAgendamentoDTO agendamento) {

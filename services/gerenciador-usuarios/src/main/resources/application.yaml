@@ -29,7 +29,15 @@ spring:
       enabled: true
       path: /h2-console
 
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 
-logging:
-  level:
-    org.springframework.boot.autoconfigure.h2: DEBUG
+app:
+  kafka:
+    producers:
+      usuario:
+        criado.topic: usuario-criado
+        atualizado.topic: usuario-atualizado
+      agendamento:
+        criado.topic: agendamento-criado
+        atualizado.topic: agendamento-atualizado
