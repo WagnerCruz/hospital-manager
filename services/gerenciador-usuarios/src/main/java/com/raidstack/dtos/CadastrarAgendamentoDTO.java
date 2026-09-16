@@ -1,10 +1,10 @@
 package com.raidstack.dtos;
 
-import com.raidstack.entities.Usuario;
-import jakarta.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record CadastrarAgendamentoDTO(
 
@@ -14,16 +14,15 @@ public record CadastrarAgendamentoDTO(
         @NotNull(message = "{agendamento.status.obrigatorio}")
         String status,
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
         @NotNull(message = "{agendamento.data.obrigatorio}")
         LocalDateTime dataAgendamento,
 
-        @NotEmpty(message = "{agendamento.medico.vazio}")
         @NotNull(message = "{agendamento.medico.obrigatorio}")
-        Usuario medico,
+        UUID idMedico,
 
-        @NotEmpty(message = "{agendamento.paciente.vazio}")
         @NotNull(message = "{agendamento.paciente.obrigatorio}")
-        Usuario paciente
+        UUID idPaciente
 
 ) {
 }

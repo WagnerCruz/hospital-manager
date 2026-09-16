@@ -11,6 +11,7 @@ import com.raidstack.entities.Permissao;
 import com.raidstack.entities.Usuario;
 import com.raidstack.enums.PerfilEnum;
 import com.raidstack.enums.PermissaoEnum;
+import com.raidstack.kafka.events.UsuarioEvent;
 import jdk.jfr.Name;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -46,6 +47,9 @@ public interface UsuarioMapper {
     @Mapping(target = "perfis", expression = "java(converterListaPerfilEnumToListaPerfil(atualizarUsuarioPerfilDTO.perfis()))")
     Usuario atualizarUsuarioPerfilDTOToUsuario(AtualizarUsuarioPerfilDTO atualizarUsuarioPerfilDTO);
 
+    @Mapping(target = "perfis", expression = "java(converterListaPerfilToListaPerfilString(usuario.getPerfis()))")
+    UsuarioEvent usuarioToUsuarioEvent(Usuario usuario);
+
     @Name("converterListaPerfilToListaPerfilEnum")
     default List<PerfilEnum> converterListaPerfilToListaPerfilEnum(List<Perfil> perfis) {
         return Optional.ofNullable(perfis).orElse(Collections.emptyList()).stream()
@@ -65,6 +69,13 @@ public interface UsuarioMapper {
     default List<Perfil> converterListaPerfilEnumToListaPerfil(List<PerfilEnum> perfilEnums) {
         return perfilEnums.stream()
                 .map(perfilEnum -> new Perfil(perfilEnum.name(), perfilEnum.getDescricao()))
+                .toList();
+    }
+
+    @Name("converterListaPerfilToListaPerfilString")
+    default List<String> converterListaPerfilToListaPerfilString(List<Perfil> perfis) {
+        return Optional.ofNullable(perfis).orElse(Collections.emptyList()).stream()
+                .map(Perfil::getNome)
                 .toList();
     }
 

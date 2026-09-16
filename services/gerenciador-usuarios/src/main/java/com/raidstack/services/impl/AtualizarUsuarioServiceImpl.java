@@ -7,6 +7,8 @@ import com.raidstack.dtos.AtualizarUsuarioSenhaDTO;
 import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.entities.Perfil;
 import com.raidstack.entities.Usuario;
+import com.raidstack.kafka.events.UsuarioEvent;
+import com.raidstack.kafka.producers.KafkaUsuarioProducer;
 import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import com.raidstack.services.IAtualizarUsuarioService;
@@ -42,6 +44,9 @@ public class AtualizarUsuarioServiceImpl implements IAtualizarUsuarioService {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
+    @Autowired
+    private KafkaUsuarioProducer kafkaUsuarioProducer;
+
     public VisualizarUsuarioDTO atualizarUsuario(AtualizarUsuarioDTO usuarioDTO) {
         Usuario usuario = this.buscarUsuario(usuarioDTO.id());
 
@@ -51,10 +56,7 @@ public class AtualizarUsuarioServiceImpl implements IAtualizarUsuarioService {
         errosValidacao.addAll(validarUsuarioService.validarCredenciaisUsuario(usuarioAtualizado));
         this.verificarErrosValidacao(errosValidacao);
 
-        usuario.setLogin(usuarioAtualizado.getLogin());
-        usuario.setNome(usuarioAtualizado.getNome());
-        usuario.setEmail(usuarioAtualizado.getEmail());
-        usuario.setDataAtualizacao(usuarioAtualizado.getDataAtualizacao());
+        this.atualizarInformacoesUsuario(usuarioAtualizado, usuario);
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
@@ -73,22 +75,25 @@ public class AtualizarUsuarioServiceImpl implements IAtualizarUsuarioService {
 
         this.atualizarIdsPerfis(usuarioAtualizado.getPerfis());
 
-        // Informações Fixas
-        usuario.setLogin(usuarioAtualizado.getLogin());
-        usuario.setNome(usuarioAtualizado.getNome());
-        usuario.setEmail(usuarioAtualizado.getEmail());
-        usuario.setDataAtualizacao(usuarioAtualizado.getDataAtualizacao());
+        this.atualizarInformacoesUsuario(usuarioAtualizado, usuario);
 
         usuario.getPerfis().clear();
         usuario.getPerfis().addAll(usuarioAtualizado.getPerfis());
 
         String senhaTemporaria = GeradorSenhaTemporaria.generate(TAMANHO_SENHA_TEMPORARIA);
-        //// TODO: ENVIAR NOTIFICAÇÃO DE SENHA TEMPORÁRIA PARA TROCA PELO SERVIÇO DE NOTIFICAÇÃO
         usuario.setSenha(this.passwordEncoder.encode(senhaTemporaria));
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
+        this.enviarNotificacaoAtualizacaoUsuario(usuarioSalvo, senhaTemporaria);
 
         return UsuarioMapper.INSTANCE.usuarioToVisualizarUsuarioDTO(usuarioSalvo);
+    }
+
+    private void atualizarInformacoesUsuario(Usuario usuarioAtualizado, Usuario usuario) {
+        usuario.setLogin(usuarioAtualizado.getLogin());
+        usuario.setNome(usuarioAtualizado.getNome());
+        usuario.setEmail(usuarioAtualizado.getEmail());
+        usuario.setDataAtualizacao(usuarioAtualizado.getDataAtualizacao());
     }
 
     public void atualizarUsuarioSenha(AtualizarUsuarioSenhaDTO usuarioDTO) {
@@ -147,6 +152,12 @@ public class AtualizarUsuarioServiceImpl implements IAtualizarUsuarioService {
             Perfil perfilRetorno = this.buscarPerfilService.buscarPerfilPorNome(perfil.getNome());
             perfil.setId(perfilRetorno.getId());
         });
+    }
+
+    private void enviarNotificacaoAtualizacaoUsuario(Usuario usuario, String senhaTemporaria) {
+        UsuarioEvent usuarioEvent = UsuarioMapper.INSTANCE.usuarioToUsuarioEvent(usuario);
+        usuarioEvent.setSenha(senhaTemporaria);
+        this.kafkaUsuarioProducer.enviarUsuarioAtualizado(usuarioEvent);
     }
 
 }

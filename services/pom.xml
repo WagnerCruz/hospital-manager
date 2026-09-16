@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>gerenciador-usuarios</module>
+        <module>notificar-usuarios</module>
     </modules>
 
     <properties>

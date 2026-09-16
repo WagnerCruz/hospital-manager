@@ -1,0 +1,28 @@
+server:
+  port: 8092
+  servlet.context-path: /notificar-usuarios
+
+spring:
+  application:
+    name: notificar-usuarios
+
+  messages:
+    basename: messages
+    encoding: UTF-8
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+app:
+  kafka:
+    consumers:
+
+      usuario:
+        group-id: usuario-consumer
+        criado.topic: usuario-criado
+        atualizado.topic: usuario-atualizado
+
+      agendamento:
+        group-id: agendamento-consumer
+        criado.topic: agendamento-criado
+        atualizado.topic: agendamento-atualizado
