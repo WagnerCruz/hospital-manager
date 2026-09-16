@@ -1,0 +1,335 @@
+{
+  "info": {
+    "_postman_id": "9d230aad-c44a-4150-9053-c086f43d635d",
+    "name": "Tech Challenge - Fase 3 - Hospital Manager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21141157"
+  },
+  "item": [
+    {
+      "name": "Gerenciar Usuários",
+      "item": [
+        {
+          "name": "Buscar Usuario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar?page=1&size=2",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuario Por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/0d1b5199-e924-4613-98e1-bbd90e5cadb4",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "0d1b5199-e924-4613-98e1-bbd90e5cadb4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Autenticar Usuário",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senha\": \"teste1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/autenticar/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "autenticar",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Usuário",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Teste Usuário\",\r\n    \"email\": \"usuario@teste.com\",\r\n    \"login\": \"teste1\",\r\n    \"senha\": \"teste123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/cadastrar/usuario",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "cadastrar",
+                "usuario"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Usuário Admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Teste Usuário Medico\",\r\n    \"email\": \"medico.usuario@teste.com\",\r\n    \"login\": \"medico.teste\",\r\n    \"perfis\": [\r\n        \"MEDICO\",\r\n        \"ADMINISTRADOR\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/cadastrar/usuario/admin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "cadastrar",
+                "usuario",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"37dc31e8-46b1-42ef-910c-05d4d1d2bee6\",\r\n    \"nome\": \"Teste Usuário Atualizado\",\r\n    \"email\": \"usuario.atualizado@teste.com\",\r\n    \"login\": \"teste123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "atualizar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário Admin",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"acf65292-8272-4ab4-b700-ce11ab7ef22a\",\r\n    \"nome\": \"Teste Usuário Atualizado\",\r\n    \"email\": \"usuario.atualizado@teste.com\",\r\n    \"login\": \"teste123\",\r\n    \"perfis\": [\r\n        \"ADMINISTRADOR\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar/admin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "atualizar",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Perfil Usuário Admin",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"acf65292-8272-4ab4-b700-ce11ab7ef22a\",\r\n    \"perfis\": [\r\n        \"MEDICO\",\r\n        \"ADMINISTRADOR\",\r\n        \"PACIENTE\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar/admin/perfil",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "atualizar",
+                "admin",
+                "perfil"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário Senha",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senhaAtual\": \"teste123\",\r\n    \"novaSenha\": \"teste1234\",\r\n    \"confirmarSenha\": \"teste1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar/senha",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "atualizar",
+                "senha"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Agendamento",
+      "item": [
+        {
+          "name": "Cadastrar Agendamento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idMedico\": \"d666e40c-6720-4067-b52d-15a2d3832b9c\",\r\n    \"idPaciente\": \"b35a2668-f4e7-441f-8d9b-1e4e6e6111f7\",\r\n    \"dataAgendamento\": \"2026-09-16 20:50\",\r\n    \"status\": \"A\",\r\n    \"descricao\": \"Consulta Teste\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/cadastrar/agendamento/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "cadastrar",
+                "agendamento",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Visualizar Agendamento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/agendamento/8d4bdf5a-35e1-45ab-9cad-7ff517e7f567",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "agendamento",
+                "8d4bdf5a-35e1-45ab-9cad-7ff517e7f567"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
