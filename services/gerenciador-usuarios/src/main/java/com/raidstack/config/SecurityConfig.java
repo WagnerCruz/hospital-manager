@@ -3,6 +3,7 @@ package com.raidstack.config;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,9 +22,9 @@ import java.security.interfaces.RSAPublicKey;
 //@EnableWebSecurity
 public class SecurityConfig {
 
-    @org.springframework.beans.factory.annotation.Value("classpath:app.pub")
+    @Value("classpath:app.pub")
     private RSAPublicKey key;
-    @org.springframework.beans.factory.annotation.Value("classpath:app.key")
+    @Value("classpath:app.key")
     private RSAPrivateKey privateKey;
 
     @Bean
@@ -32,7 +33,9 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/v1/autenticar/login").permitAll()
                                 .requestMatchers("/v1/authentication/login").permitAll()
+                                .requestMatchers("/v1/cadastrar/usuario").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
