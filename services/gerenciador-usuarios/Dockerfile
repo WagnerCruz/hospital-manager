@@ -4,9 +4,7 @@ FROM maven:3.9.14-eclipse-temurin-21 AS build
 WORKDIR /app
 
 COPY pom.xml ./pom.xml
-
 COPY services/pom.xml ./services/pom.xml
-
 COPY services/gerenciador-usuarios/pom.xml ./services/gerenciador-usuarios/pom.xml
 COPY services/notificar-usuarios/pom.xml ./services/notificar-usuarios/pom.xml
 
