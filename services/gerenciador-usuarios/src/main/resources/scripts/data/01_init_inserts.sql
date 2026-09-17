@@ -9,10 +9,10 @@
 
 INSERT INTO hospital.usuarios (id, login, nome, email, senha, ativo)
 VALUES
-    (RANDOM_UUID(), 'admin', 'Administrador', 'admin@example.com', 'abcd1234', true),
-    (RANDOM_UUID(), 'paciente', 'Paciente', 'paciente@example.com', 'paciente01', true),
-    (RANDOM_UUID(), 'medico', 'Médico', 'medico@example.com', 'medico01', true),
-    (RANDOM_UUID(), 'enfermeiro', 'Enfermeiro', 'enfermeiro@example.com', 'enfermeiro01', true);
+    (RANDOM_UUID(), 'admin', 'Administrador', 'admin@example.com', '$2a$12$ERt5PPqRsP45iQB8.dbefeyIltATCKxrrplinZHUzw2FwDiPliYBm', true),
+    (RANDOM_UUID(), 'paciente', 'Paciente', 'paciente@example.com', '$2a$12$n6ltKZwv4aE.Z3OGm9c.UuoUgsnkPJ15BunCmo382PM0GqDJSCMQC', true),
+    (RANDOM_UUID(), 'medico', 'Médico', 'medico@example.com', '$2a$12$xn1S8KkDTzZHmFUNF8gWAe39taS94e6TQC6XGnBF/Y6g16qmjhoU6', true),
+    (RANDOM_UUID(), 'enfermeiro', 'Enfermeiro', 'enfermeiro@example.com', '$2a$12$/bcOb1GmOuPXD81zof.8IenjcedJwYuKorw3D1RbTIf77nA42NZj2', true);
 
 INSERT INTO hospital.perfis (id, nome, descricao)
 VALUES
