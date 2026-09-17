@@ -27,10 +27,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String encodedPassword = users.get(username);
-        if (encodedPassword == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado");
-        }
 
         return usuarioRepository.findUsuarioByLogin(username)
                 .map(UsuarioAutenticado::new)
