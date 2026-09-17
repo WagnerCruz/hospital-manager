@@ -52,7 +52,7 @@ public class Usuario {
 
     private LocalDateTime dataAtualizacao = LocalDateTime.now();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             schema = "hospital",
             name = "usuario_perfil",

@@ -1,0 +1,37 @@
+package com.raidstack.security;
+
+import com.raidstack.repositories.IUsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserDetailService implements UserDetailsService {
+
+//    private final Map<String, String> users = new HashMap<>();
+
+    @Autowired
+    private IUsuarioRepository usuarioRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.findUsuarioByLogin(username)
+                .map(UsuarioAutenticado::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+    }
+
+//    public boolean validateUserCredentials(String username, String password) {
+//        String encodedPassword = users.get(username);
+//        if (encodedPassword == null) {
+//            return false;
+//        }
+//        return passwordEncoder.matches(password, encodedPassword);
+//    }
+}

@@ -1,36 +1,38 @@
 package com.raidstack.services.impl;
 
 import com.raidstack.dtos.AutenticarUsuarioDTO;
-import com.raidstack.entities.Usuario;
-import com.raidstack.repositories.IUsuarioRepository;
+import com.raidstack.security.JwtService;
 import com.raidstack.services.IAutenticarUsuarioService;
-import com.raidstack.services.exceptions.ResourceBadRequestException;
-import com.raidstack.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AutenticarUsuarioServiceImpl implements IAutenticarUsuarioService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private JwtService jwtServiceImpl;
 
     @Override
-    public void autenticarUsuario(AutenticarUsuarioDTO usuario) {
-        Optional<Usuario> usuarioSalvo = this.usuarioRepository.findUsuarioByLogin(usuario.login());
-        if (usuarioSalvo.isEmpty()) {
-            throw new ResourceNotFoundException("Usuário não encontrado");
-        }
+    public String autenticarUsuario(AutenticarUsuarioDTO usuario) {
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                usuario.login(),
+                                usuario.senha()
+                        )
+                );
 
-        if (!passwordEncoder.matches(usuario.senha(), usuarioSalvo.get().getSenha())) {
-            throw new ResourceBadRequestException("Senha inválida");
-        }
+        SecurityContextHolder.getContext()
+                .setAuthentication(authentication);
+
+        return jwtServiceImpl.generateToken(authentication);
     }
 
 }

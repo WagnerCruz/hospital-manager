@@ -4,6 +4,6 @@ import com.raidstack.dtos.AutenticarUsuarioDTO;
 
 public interface IAutenticarUsuarioService {
 
-    void autenticarUsuario(AutenticarUsuarioDTO usuario);
+    String autenticarUsuario(AutenticarUsuarioDTO usuario);
 
 }

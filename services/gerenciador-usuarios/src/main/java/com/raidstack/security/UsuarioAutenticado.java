@@ -1,12 +1,14 @@
-package com.raidstack.entities;
+package com.raidstack.security;
 
-import org.jspecify.annotations.Nullable;
+import com.raidstack.entities.Usuario;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioAutenticado implements UserDetails {
 
@@ -18,7 +20,11 @@ public class UsuarioAutenticado implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> "read");
+        return Optional.ofNullable(usuario.getPerfis()).orElse(Collections.emptyList()).stream()
+                .flatMap(perfil -> Optional.ofNullable(perfil.getPermissoes()).orElse(Collections.emptyList()).stream())
+                .map(permissao -> "ROLE_".concat(permissao.getNome()))
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 
     @Override

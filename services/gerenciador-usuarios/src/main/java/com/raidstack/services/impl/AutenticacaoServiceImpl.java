@@ -1,14 +1,15 @@
 package com.raidstack.services.impl;
 
+import com.raidstack.security.JwtService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AutenticacaoServiceImpl {
 
-    private final JwtServiceImpl jwtServiceImpl;
+    private final JwtService jwtServiceImpl;
 
-    public AutenticacaoServiceImpl(JwtServiceImpl jwtServiceImpl) {
+    public AutenticacaoServiceImpl(JwtService jwtServiceImpl) {
         this.jwtServiceImpl = jwtServiceImpl;
     }
 

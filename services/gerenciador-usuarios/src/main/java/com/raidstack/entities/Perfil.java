@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,9 +49,9 @@ public class Perfil {
             joinColumns = @JoinColumn(name = "perfil_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id")
     )
-    private List<Permissao> permissoes;
+    private List<Permissao> permissoes = new ArrayList<>();
 
     @ManyToMany(mappedBy = "perfis", fetch = FetchType.LAZY)
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<>();
 
 }

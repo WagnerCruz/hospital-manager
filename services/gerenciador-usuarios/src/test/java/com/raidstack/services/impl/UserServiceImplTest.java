@@ -1,6 +1,7 @@
 package com.raidstack.services.impl;
 
 import com.raidstack.repositories.IUsuarioRepository;
+import com.raidstack.security.UserDetailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class UserServiceImplTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    private UserDetailServiceImpl userService;
+    private UserDetailService userService;
 
     @Mock
     private IUsuarioRepository usuarioRepository;
@@ -40,7 +41,7 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        userService = new UserDetailServiceImpl(usuarioRepository, passwordEncoder);
+        userService = new UserDetailService(usuarioRepository, passwordEncoder);
         setupUsers();
     }
 

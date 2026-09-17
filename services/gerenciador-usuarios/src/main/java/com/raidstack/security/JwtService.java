@@ -1,4 +1,4 @@
-package com.raidstack.services.impl;
+package com.raidstack.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,11 +10,11 @@ import java.time.Instant;
 import java.util.stream.Collectors;
 
 @Service
-public class JwtServiceImpl {
+public class JwtService {
 
     private final JwtEncoder jwtEncoder;
 
-    public JwtServiceImpl(JwtEncoder jwtEncoder) {
+    public JwtService(JwtEncoder jwtEncoder) {
         this.jwtEncoder = jwtEncoder;
     }
 

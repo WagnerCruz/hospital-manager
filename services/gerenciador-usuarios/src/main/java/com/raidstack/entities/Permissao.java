@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +36,6 @@ public class Permissao {
     private String descricao;
 
     @ManyToMany(mappedBy = "permissoes", fetch = FetchType.LAZY)
-    private List<Perfil> perfis;
+    private List<Perfil> perfis = new ArrayList<>();
 
 }
