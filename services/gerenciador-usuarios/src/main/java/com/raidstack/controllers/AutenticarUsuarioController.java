@@ -18,9 +18,8 @@ public class AutenticarUsuarioController {
     private IAutenticarUsuarioService autenticarUsuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody @Valid AutenticarUsuarioDTO usuario) {
-        this.autenticarUsuarioService.autenticarUsuario(usuario);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> login(@RequestBody @Valid AutenticarUsuarioDTO usuario) {
+        return ResponseEntity.ok(this.autenticarUsuarioService.autenticarUsuario(usuario));
     }
 
 }
