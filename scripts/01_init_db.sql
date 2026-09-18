@@ -78,6 +78,7 @@ VALUES
     (gen_random_uuid(), 'paciente', 'Paciente', 'paciente@example.com', '$2a$12$n6ltKZwv4aE.Z3OGm9c.UuoUgsnkPJ15BunCmo382PM0GqDJSCMQC', true),
     (gen_random_uuid(), 'medico', 'Médico', 'medico@example.com', '$2a$12$xn1S8KkDTzZHmFUNF8gWAe39taS94e6TQC6XGnBF/Y6g16qmjhoU6', true),
     (gen_random_uuid(), 'enfermeiro', 'Enfermeiro', 'enfermeiro@example.com', '$2a$12$/bcOb1GmOuPXD81zof.8IenjcedJwYuKorw3D1RbTIf77nA42NZj2', true);
+
 INSERT INTO hospital.perfis (id, nome, descricao)
 VALUES
     (gen_random_uuid(), 'ADMINISTRADOR', 'Administrador'),
@@ -111,7 +112,7 @@ INSERT INTO hospital.perfil_permissao (perfil_id, permissao_id)
 SELECT perfil.id, permissao.id
 FROM hospital.perfis perfil
     JOIN hospital.permissoes permissao ON permissao.nome like 'USUARIO%'
-WHERE perfil.nome IN ('PACIENTE', 'MEDICO', 'ENFERMEIRO', 'ADMINISTRADOR');
+WHERE perfil.nome IN ('MEDICO', 'ENFERMEIRO', 'ADMINISTRADOR');
 
 INSERT INTO hospital.perfil_permissao (perfil_id, permissao_id)
 SELECT perfil.id, permissao.id
@@ -131,3 +132,28 @@ FROM hospital.perfis perfil
          JOIN hospital.permissoes permissao ON permissao.nome IN ('AGENDAMENTO_VIZUALIZAR')
 WHERE perfil.nome IN ('PACIENTE');
 
+
+---- ASSOCIAR PERFIS AOS USUÁRIOS PADRÕES
+INSERT INTO hospital.usuario_perfil (usuario_id, perfil_id)
+SELECT usuario.id, perfil.id
+FROM hospital.perfis perfil
+         JOIN hospital.usuarios usuario ON usuario.login IN ('admin')
+WHERE perfil.nome IN ('ADMINISTRADOR');
+
+INSERT INTO hospital.usuario_perfil (usuario_id, perfil_id)
+SELECT usuario.id, perfil.id
+FROM hospital.perfis perfil
+         JOIN hospital.usuarios usuario ON usuario.login IN ('paciente')
+WHERE perfil.nome IN ('PACIENTE');
+
+INSERT INTO hospital.usuario_perfil (usuario_id, perfil_id)
+SELECT usuario.id, perfil.id
+FROM hospital.perfis perfil
+         JOIN hospital.usuarios usuario ON usuario.login IN ('medico')
+WHERE perfil.nome IN ('MEDICO');
+
+INSERT INTO hospital.usuario_perfil (usuario_id, perfil_id)
+SELECT usuario.id, perfil.id
+FROM hospital.perfis perfil
+         JOIN hospital.usuarios usuario ON usuario.login IN ('enfermeiro')
+WHERE perfil.nome IN ('ENFERMEIRO');

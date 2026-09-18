@@ -42,7 +42,7 @@ public class Perfil {
 
     private String descricao;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             schema = "hospital",
             name = "perfil_permissao",

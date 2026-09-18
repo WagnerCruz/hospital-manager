@@ -10,14 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailService implements UserDetailsService {
 
-//    private final Map<String, String> users = new HashMap<>();
-
     @Autowired
     private IUsuarioRepository usuarioRepository;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,11 +21,4 @@ public class UserDetailService implements UserDetailsService {
 
     }
 
-//    public boolean validateUserCredentials(String username, String password) {
-//        String encodedPassword = users.get(username);
-//        if (encodedPassword == null) {
-//            return false;
-//        }
-//        return passwordEncoder.matches(password, encodedPassword);
-//    }
 }

@@ -7,6 +7,7 @@ import com.raidstack.services.ICadastrarUsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class CadastrarUsuarioController {
     }
 
     @PostMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR_USUARIO_CRIAR')")
     public ResponseEntity<VisualizarUsuarioDTO> cadastrarUsuarioExterno(@RequestBody @Valid CadastrarUsuarioExternoDTO usuario) {
         return ResponseEntity.ok(this.cadastrarUsuarioService.cadastrarUsuarioExternoDTO(usuario));
     }

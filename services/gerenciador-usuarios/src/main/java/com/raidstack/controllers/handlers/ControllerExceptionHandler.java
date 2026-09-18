@@ -4,6 +4,7 @@ import com.raidstack.services.exceptions.ResourceExceptionDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -49,6 +50,16 @@ public class ControllerExceptionHandler {
         var status = HttpStatus.NOT_FOUND;
         ProblemDetail problem = ProblemDetail.forStatus(status);
         problem.setTitle("Erro interno do servidor");
+        problem.setDetail(exception.getMessage());
+        problem.setProperty("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(status).body(problem);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ProblemDetail> handlerRuntimeException(AuthorizationDeniedException exception) {
+        var status = HttpStatus.FORBIDDEN;
+        ProblemDetail problem = ProblemDetail.forStatus(status);
+        problem.setTitle("Acesso Negado para essa operação, informe o Administrador");
         problem.setDetail(exception.getMessage());
         problem.setProperty("timestamp", LocalDateTime.now());
         return ResponseEntity.status(status).body(problem);

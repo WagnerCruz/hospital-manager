@@ -17,14 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/cadastrar/agendamento")
 public class CadastrarAgendamentoController {
 
-    private final ICadastrarAgendamentoService cadastrarAgendamentoService;
-
-    public CadastrarAgendamentoController(ICadastrarAgendamentoService cadastrarAgendamentoService) {
-        this.cadastrarAgendamentoService = cadastrarAgendamentoService;
-    }
+    @Autowired
+    private ICadastrarAgendamentoService cadastrarAgendamentoService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('permission:AGENDAMENTO_CRIAR')")
+    @PreAuthorize("hasAuthority('AGENDAMENTO_CRIAR')")
     public ResponseEntity<VisualizarAgendamentoDTO> cadastrarAgendamento(@RequestBody @Valid CadastrarAgendamentoDTO agendamento) {
         return ResponseEntity.ok(this.cadastrarAgendamentoService.cadastrarAgendamentoDTO(agendamento));
     }

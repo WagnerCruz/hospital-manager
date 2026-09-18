@@ -13,6 +13,4 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, UUID> {
     Optional<Usuario> findUsuarioByNome(String nome);
 
     boolean existsByLogin(String login);
-
-    UUID id(UUID id);
 }
