@@ -1,16 +1,21 @@
 package com.raidstack.services.impl;
 
+import com.raidstack.entities.Perfil;
 import com.raidstack.entities.Usuario;
 import com.raidstack.enums.PerfilEnum;
 import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import com.raidstack.services.IValidarUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ValidarUsuarioServiceImpl implements IValidarUsuarioService {
@@ -46,6 +51,11 @@ public class ValidarUsuarioServiceImpl implements IValidarUsuarioService {
         }
 
         return errosValidacao;
+    }
+
+    public boolean validarPerfilUsuarioPorID(UUID idUsuario, PerfilEnum perfilEnum) {
+        List<Perfil> perfis = this.usuarioRepository.findById(idUsuario).map(Usuario::getPerfis).orElse(Collections.emptyList());
+        return perfis.stream().anyMatch(perfil -> perfilEnum.name().equals(perfil.getNome()));
     }
 
 

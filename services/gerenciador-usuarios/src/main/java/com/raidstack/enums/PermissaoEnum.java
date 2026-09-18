@@ -15,7 +15,7 @@ public enum PermissaoEnum {
     ADMINISTRADOR_USUARIO_VISUALIZAR("Visualizar usuários"),
 	ADMINISTRADOR_USUARIO_DESATIVAR("Desativar usuários"),
 	ADMINISTRADOR_USUARIO_GERENCIAR_PERFIL("Gerenciar perfil dos usuários"),
-	CRIAR_AGENDAMENTO("Criar Agendamentos"),
+	AGENDAMENTO_CRIAR("Criar Agendamentos"),
 	AGENDAMENTO_VIZUALIZAR("Visualizar Agendamentos"),
 	AGENDAMENTO_ATUALIZAR("Atualizar Agendamentos"),
     ;

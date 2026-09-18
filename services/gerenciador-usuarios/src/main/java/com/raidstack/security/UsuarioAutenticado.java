@@ -1,5 +1,6 @@
 package com.raidstack.security;
 
+import com.raidstack.entities.Permissao;
 import com.raidstack.entities.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +23,7 @@ public class UsuarioAutenticado implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Optional.ofNullable(usuario.getPerfis()).orElse(Collections.emptyList()).stream()
                 .flatMap(perfil -> Optional.ofNullable(perfil.getPermissoes()).orElse(Collections.emptyList()).stream())
-                .map(permissao -> "ROLE_".concat(permissao.getNome()))
+                .map(Permissao::getNome)
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }
