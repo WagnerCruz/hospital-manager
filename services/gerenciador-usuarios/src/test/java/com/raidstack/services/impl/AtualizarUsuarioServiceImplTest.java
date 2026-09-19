@@ -206,13 +206,13 @@ class AtualizarUsuarioServiceImplTest {
                 novaSenha
         );
 
-        when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
+        when(usuarioRepository.findByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
         when(passwordEncoder.matches(senhaAtual, senhaEncodada)).thenReturn(true);
         when(passwordEncoder.encode(novaSenha)).thenReturn("novaSenhaEncodada");
 
         atualizarUsuarioService.atualizarUsuarioSenha(atualizarSenhaDTO);
 
-        verify(usuarioRepository, times(1)).findUsuarioByLogin(loginUsuario);
+        verify(usuarioRepository, times(1)).findByLogin(loginUsuario);
         verify(passwordEncoder, times(1)).matches(senhaAtual, senhaEncodada);
         verify(passwordEncoder, times(1)).encode(novaSenha);
         verify(usuarioRepository, times(1)).save(any(Usuario.class));
@@ -228,7 +228,7 @@ class AtualizarUsuarioServiceImplTest {
                 "novaSenha"
         );
 
-        when(usuarioRepository.findUsuarioByLogin("login")).thenReturn(Optional.empty());
+        when(usuarioRepository.findByLogin("login")).thenReturn(Optional.empty());
 
         assertThrows(ResourceBadRequestException.class, () -> {
             atualizarUsuarioService.atualizarUsuarioSenha(atualizarSenhaDTO);
@@ -252,7 +252,7 @@ class AtualizarUsuarioServiceImplTest {
                 "novaSenha"
         );
 
-        when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
+        when(usuarioRepository.findByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
         when(passwordEncoder.matches(senhaAtual, senhaEncodada)).thenReturn(false);
 
         assertThrows(ResourceBadRequestException.class, () -> {
@@ -277,7 +277,7 @@ class AtualizarUsuarioServiceImplTest {
                 "novaSenhaErrada"
         );
 
-        when(usuarioRepository.findUsuarioByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
+        when(usuarioRepository.findByLogin(loginUsuario)).thenReturn(Optional.of(usuarioSenha));
         when(passwordEncoder.matches(senhaAtual, senhaEncodada)).thenReturn(true);
 
         assertThrows(ResourceBadRequestException.class, () -> {

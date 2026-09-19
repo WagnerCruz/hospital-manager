@@ -7,8 +7,6 @@ import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import com.raidstack.services.IValidarUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ public class ValidarUsuarioServiceImpl implements IValidarUsuarioService {
 
     public List<String> validarCredenciaisUsuario(Usuario usuario) {
         List<String> errosValidacao = new ArrayList<>();
-        Optional<Usuario> usuarioLogin = this.usuarioRepository.findUsuarioByLogin(usuario.getLogin());
-        Optional<Usuario> usuarioEmail = this.usuarioRepository.findUsuarioByEmail(usuario.getEmail());
+        Optional<Usuario> usuarioLogin = this.usuarioRepository.findByLogin(usuario.getLogin());
+        Optional<Usuario> usuarioEmail = this.usuarioRepository.findByEmail(usuario.getEmail());
 
         if (usuarioLogin.isPresent() && !usuarioLogin.get().getId().equals(usuario.getId())) {
             errosValidacao.add("login: Login informado já está cadastrado");

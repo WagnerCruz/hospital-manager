@@ -2,7 +2,6 @@ package com.raidstack.services.impl;
 
 import com.raidstack.dtos.VisualizarUsuarioDTO;
 import com.raidstack.entities.Usuario;
-import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -168,20 +167,20 @@ class BuscarUsuarioServiceImplTest {
     @DisplayName("Deve encontrar usuário por email com sucesso")
     void testBuscarUsuarioPorEmailSucesso() {
         String email = "usuario@test.com";
-        when(usuarioRepository.findUsuarioByEmail(email))
+        when(usuarioRepository.findByEmail(email))
                 .thenReturn(Optional.of(usuarioExistente));
 
         VisualizarUsuarioDTO resultado = buscarUsuarioService.buscarUsuarioPorEmail(email);
 
         assertNotNull(resultado);
-        verify(usuarioRepository, times(1)).findUsuarioByEmail(email);
+        verify(usuarioRepository, times(1)).findByEmail(email);
     }
 
     @Test
     @DisplayName("Deve lançar RuntimeException quando usuário não é encontrado por email")
     void testBuscarUsuarioPorEmailNaoEncontrado() {
         String emailInexistente = "inexistente@test.com";
-        when(usuarioRepository.findUsuarioByEmail(emailInexistente))
+        when(usuarioRepository.findByEmail(emailInexistente))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
@@ -189,13 +188,13 @@ class BuscarUsuarioServiceImplTest {
                 .withMessageContaining("Usuário não encontrado")
                 .withMessageContaining(emailInexistente);
 
-        verify(usuarioRepository, times(1)).findUsuarioByEmail(emailInexistente);
+        verify(usuarioRepository, times(1)).findByEmail(emailInexistente);
     }
 
     @Test
     @DisplayName("Deve lançar exceção quando email é nulo")
     void testBuscarUsuarioPorEmailNulo() {
-        when(usuarioRepository.findUsuarioByEmail(null))
+        when(usuarioRepository.findByEmail(null))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
@@ -205,7 +204,7 @@ class BuscarUsuarioServiceImplTest {
     @Test
     @DisplayName("Deve lançar exceção quando email é vazio")
     void testBuscarUsuarioPorEmailVazio() {
-        when(usuarioRepository.findUsuarioByEmail(""))
+        when(usuarioRepository.findByEmail(""))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
@@ -217,20 +216,20 @@ class BuscarUsuarioServiceImplTest {
     @DisplayName("Deve encontrar usuário por nome com sucesso")
     void testBuscarUsuarioPorNomeSucesso() {
         String nome = "João Silva";
-        when(usuarioRepository.findUsuarioByNome(nome))
+        when(usuarioRepository.findByNome(nome))
                 .thenReturn(Optional.of(usuarioExistente));
 
         VisualizarUsuarioDTO resultado = buscarUsuarioService.buscarUsuarioPorNome(nome);
 
         assertNotNull(resultado);
-        verify(usuarioRepository, times(1)).findUsuarioByNome(nome);
+        verify(usuarioRepository, times(1)).findByNome(nome);
     }
 
     @Test
     @DisplayName("Deve lançar RuntimeException quando usuário não é encontrado por nome")
     void testBuscarUsuarioPorNomeNaoEncontrado() {
         String nomeInexistente = "Nome Inexistente";
-        when(usuarioRepository.findUsuarioByNome(nomeInexistente))
+        when(usuarioRepository.findByNome(nomeInexistente))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
@@ -238,13 +237,13 @@ class BuscarUsuarioServiceImplTest {
                 .withMessageContaining("Usuário não encontrado")
                 .withMessageContaining(nomeInexistente);
 
-        verify(usuarioRepository, times(1)).findUsuarioByNome(nomeInexistente);
+        verify(usuarioRepository, times(1)).findByNome(nomeInexistente);
     }
 
     @Test
     @DisplayName("Deve lançar exceção quando nome é nulo")
     void testBuscarUsuarioPorNomeNulo() {
-        when(usuarioRepository.findUsuarioByNome(null))
+        when(usuarioRepository.findByNome(null))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
@@ -254,7 +253,7 @@ class BuscarUsuarioServiceImplTest {
     @Test
     @DisplayName("Deve lançar exceção quando nome é vazio")
     void testBuscarUsuarioPorNomeVazio() {
-        when(usuarioRepository.findUsuarioByNome(""))
+        when(usuarioRepository.findByNome(""))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)

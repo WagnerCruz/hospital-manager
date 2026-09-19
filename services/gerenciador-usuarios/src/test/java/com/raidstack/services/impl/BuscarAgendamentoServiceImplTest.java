@@ -1,6 +1,7 @@
 package com.raidstack.services.impl;
 
 import com.raidstack.dtos.VisualizarAgendamentoDTO;
+import com.raidstack.dtos.VisualizarUsuarioAgendamentoDTO;
 import com.raidstack.entities.Agendamento;
 import com.raidstack.entities.Usuario;
 import com.raidstack.mappers.AgendamentoMapper;
@@ -218,8 +219,8 @@ class BuscarAgendamentoServiceImplTest {
                 "VISUALIZAR AGENDAMENTO TESTE",
                 "A",
                 LocalDateTime.now().plusDays(1),
-                new Usuario(),
-                new Usuario()
+                new VisualizarUsuarioAgendamentoDTO(null, null, null),
+                new VisualizarUsuarioAgendamentoDTO(null, null, null)
         );
     }
 }

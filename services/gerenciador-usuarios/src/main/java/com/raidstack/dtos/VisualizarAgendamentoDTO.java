@@ -14,9 +14,9 @@ public record VisualizarAgendamentoDTO(
 
     LocalDateTime dataAgendamento,
 
-    Usuario medico,
+    VisualizarUsuarioAgendamentoDTO medico,
 
-    Usuario paciente
+    VisualizarUsuarioAgendamentoDTO paciente
 
 
 ) {

@@ -19,7 +19,7 @@ WORKDIR /app
 
 ENV API_PORT_DEFAULT=${API_PORT_DEFAULT}
 
-COPY --from=build /workspace/services/notificar-usuarios/target/*.jar /app/app.jar
+COPY --from=build /app/services/notificar-usuarios/target/*.jar /app/app.jar
 
 EXPOSE ${API_PORT_DEFAULT}
 
