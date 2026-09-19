@@ -1,10 +1,10 @@
 package com.raidstack.security;
 
-import com.raidstack.entities.Agendamento;
 import com.raidstack.entities.Usuario;
+import com.raidstack.enums.PerfilEnum;
 import com.raidstack.enums.PermissaoEnum;
 import com.raidstack.repositories.IUsuarioRepository;
-import com.raidstack.services.IValidarUsuarioService;
+import com.raidstack.services.exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,5 +49,19 @@ public class ValidarAcessoProprioUsuarioSecurity {
     private List<GrantedAuthority> getPermissoes() {
         return new ArrayList<>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     }
+
+    public String obterLoginUsuarioLogado() {
+        Authentication authentication =
+                SecurityContextHolder.getContext()
+                        .getAuthentication();
+        return authentication.getName();
+    }
+
+    public Usuario obterUsuarioLogado() {
+        return this.usuarioRepository.findByLogin(this.obterLoginUsuarioLogado())
+                .orElseThrow(() -> new ResourceConflictException("Não foi possível encontrar o usuário logado, atualize o acesso"));
+    }
+
+
 
 }

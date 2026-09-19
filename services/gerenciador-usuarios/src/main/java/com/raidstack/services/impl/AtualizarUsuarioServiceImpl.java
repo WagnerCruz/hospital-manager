@@ -97,7 +97,7 @@ public class AtualizarUsuarioServiceImpl implements IAtualizarUsuarioService {
     }
 
     public void atualizarUsuarioSenha(AtualizarUsuarioSenhaDTO usuarioDTO) {
-        Usuario usuario = this.usuarioRepository.findUsuarioByLogin(usuarioDTO.login())
+        Usuario usuario = this.usuarioRepository.findByLogin(usuarioDTO.login())
                 .orElseThrow(() -> new ResourceBadRequestException("Usuário não encontrado para o login: " + usuarioDTO.login()));
 
         if (!this.passwordEncoder.matches(usuarioDTO.senhaAtual(), usuario.getSenha())) {

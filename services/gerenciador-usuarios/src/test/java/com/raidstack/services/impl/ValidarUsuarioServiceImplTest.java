@@ -2,9 +2,7 @@ package com.raidstack.services.impl;
 
 import com.raidstack.entities.Usuario;
 import com.raidstack.enums.PerfilEnum;
-import com.raidstack.mappers.UsuarioMapper;
 import com.raidstack.repositories.IUsuarioRepository;
-import com.raidstack.services.IValidarUsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,16 +49,16 @@ class ValidarUsuarioServiceImplTest {
     void testValidarCredenciaisUsuarioValidas() {
         Usuario usuarioNovo = criarUsuarioNovo();
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioNovo.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioNovo.getLogin()))
                 .thenReturn(Optional.empty());
-        when(usuarioRepository.findUsuarioByEmail(usuarioNovo.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioNovo.getEmail()))
                 .thenReturn(Optional.empty());
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioNovo);
 
         assertThat(erros).isEmpty();
-        verify(usuarioRepository, times(1)).findUsuarioByLogin(usuarioNovo.getLogin());
-        verify(usuarioRepository, times(1)).findUsuarioByEmail(usuarioNovo.getEmail());
+        verify(usuarioRepository, times(1)).findByLogin(usuarioNovo.getLogin());
+        verify(usuarioRepository, times(1)).findByEmail(usuarioNovo.getEmail());
     }
 
     @Test
@@ -69,9 +67,9 @@ class ValidarUsuarioServiceImplTest {
         Usuario usuarioNovo = criarUsuarioNovo();
         Usuario usuarioComLoginExistente = criarUsuarioComDadosEspecificos("loginexistente", "outro@email.com", UUID.randomUUID());
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioNovo.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioNovo.getLogin()))
                 .thenReturn(Optional.of(usuarioComLoginExistente));
-        when(usuarioRepository.findUsuarioByEmail(usuarioNovo.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioNovo.getEmail()))
                 .thenReturn(Optional.empty());
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioNovo);
@@ -87,9 +85,9 @@ class ValidarUsuarioServiceImplTest {
         Usuario usuarioNovo = criarUsuarioNovo();
         Usuario usuarioComEmailExistente = criarUsuarioComDadosEspecificos("outroLogin", "email@example.com", UUID.randomUUID());
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioNovo.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioNovo.getLogin()))
                 .thenReturn(Optional.empty());
-        when(usuarioRepository.findUsuarioByEmail(usuarioNovo.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioNovo.getEmail()))
                 .thenReturn(Optional.of(usuarioComEmailExistente));
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioNovo);
@@ -108,9 +106,9 @@ class ValidarUsuarioServiceImplTest {
         Usuario usuarioComLoginExistente = criarUsuarioComDadosEspecificos("loginexistente", "outro@email.com", outroId);
         Usuario usuarioComEmailExistente = criarUsuarioComDadosEspecificos("outroLogin", "email@example.com", outroId);
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioNovo.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioNovo.getLogin()))
                 .thenReturn(Optional.of(usuarioComLoginExistente));
-        when(usuarioRepository.findUsuarioByEmail(usuarioNovo.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioNovo.getEmail()))
                 .thenReturn(Optional.of(usuarioComEmailExistente));
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioNovo);
@@ -123,9 +121,9 @@ class ValidarUsuarioServiceImplTest {
     void testValidarCredenciaisLoginDuplicadoMesmoId() {
         Usuario usuarioExistente = criarUsuarioExistente();
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioExistente.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioExistente.getLogin()))
                 .thenReturn(Optional.of(usuarioExistente));
-        when(usuarioRepository.findUsuarioByEmail(usuarioExistente.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioExistente.getEmail()))
                 .thenReturn(Optional.empty());
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioExistente);
@@ -138,9 +136,9 @@ class ValidarUsuarioServiceImplTest {
     void testValidarCredenciaisEmailDuplicadoMesmoId() {
         Usuario usuarioExistente = criarUsuarioExistente();
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioExistente.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioExistente.getLogin()))
                 .thenReturn(Optional.empty());
-        when(usuarioRepository.findUsuarioByEmail(usuarioExistente.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioExistente.getEmail()))
                 .thenReturn(Optional.of(usuarioExistente));
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioExistente);
@@ -240,9 +238,9 @@ class ValidarUsuarioServiceImplTest {
         Usuario usuarioComNumeros = criarUsuarioNovo();
         usuarioComNumeros.setLogin("usuario123");
 
-        when(usuarioRepository.findUsuarioByLogin("usuario123"))
+        when(usuarioRepository.findByLogin("usuario123"))
                 .thenReturn(Optional.empty());
-        when(usuarioRepository.findUsuarioByEmail(usuarioComNumeros.getEmail()))
+        when(usuarioRepository.findByEmail(usuarioComNumeros.getEmail()))
                 .thenReturn(Optional.empty());
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioComNumeros);
@@ -256,9 +254,9 @@ class ValidarUsuarioServiceImplTest {
         Usuario usuarioComEmail = criarUsuarioNovo();
         usuarioComEmail.setEmail("usuario.teste-123@example.com");
 
-        when(usuarioRepository.findUsuarioByLogin(usuarioComEmail.getLogin()))
+        when(usuarioRepository.findByLogin(usuarioComEmail.getLogin()))
                 .thenReturn(Optional.empty());
-        when(usuarioRepository.findUsuarioByEmail("usuario.teste-123@example.com"))
+        when(usuarioRepository.findByEmail("usuario.teste-123@example.com"))
                 .thenReturn(Optional.empty());
 
         List<String> erros = validarUsuarioService.validarCredenciaisUsuario(usuarioComEmail);

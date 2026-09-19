@@ -7,59 +7,8 @@
   },
   "item": [
     {
-      "name": "Gerenciar Usuários",
+      "name": "Autenticar Usuários",
       "item": [
-        {
-          "name": "Buscar Usuario",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar?page=1&size=2",
-              "host": [
-                "localhost"
-              ],
-              "port": "8091",
-              "path": [
-                "gerenciar-usuarios",
-                "v1",
-                "visualizar"
-              ],
-              "query": [
-                {
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "key": "size",
-                  "value": "2"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Buscar Usuario Por ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/0d1b5199-e924-4613-98e1-bbd90e5cadb4",
-              "host": [
-                "localhost"
-              ],
-              "port": "8091",
-              "path": [
-                "gerenciar-usuarios",
-                "v1",
-                "visualizar",
-                "0d1b5199-e924-4613-98e1-bbd90e5cadb4"
-              ]
-            }
-          },
-          "response": []
-        },
         {
           "name": "Autenticar Usuário",
           "request": {
@@ -67,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senha\": \"teste1234\"\r\n}",
+              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senha\": \"teste123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -88,6 +37,305 @@
               ]
             }
           },
+          "response": [
+            {
+              "name": "Autenticar Usuário - Admin",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"abcd1234\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8091/gerenciar-usuarios/v1/autenticar/login",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8091",
+                  "path": [
+                    "gerenciar-usuarios",
+                    "v1",
+                    "autenticar",
+                    "login"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Autenticar Usuário - Paciente",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"login\": \"paciente\",\r\n    \"senha\": \"paciente01\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8091/gerenciar-usuarios/v1/autenticar/login",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8091",
+                  "path": [
+                    "gerenciar-usuarios",
+                    "v1",
+                    "autenticar",
+                    "login"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Autenticar Usuário - Enfermeiro",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"login\": \"enfermeiro\",\r\n    \"senha\": \"enfermeiro01\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8091/gerenciar-usuarios/v1/autenticar/login",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8091",
+                  "path": [
+                    "gerenciar-usuarios",
+                    "v1",
+                    "autenticar",
+                    "login"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Autenticar Usuário - Medico",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"login\": \"medico\",\r\n    \"senha\": \"medico01\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8091/gerenciar-usuarios/v1/autenticar/login",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8091",
+                  "path": [
+                    "gerenciar-usuarios",
+                    "v1",
+                    "autenticar",
+                    "login"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gerenciar Usuários",
+      "item": [
+        {
+          "name": "Buscar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJhZG1pbiIsImV4cCI6MTc4OTY5ODgzNiwiaWF0IjoxNzg5Njk1MjM2LCJzY29wZSI6IlJPTEVfVVNVQVJJT19BVFVBTElaQVIgUk9MRV9VU1VBUklPX0FUVUFMSVpBUl9TRU5IQSBST0xFX1VTVUFSSU9fVklTVUFMSVpBUiBST0xFX0FETUlOSVNUUkFET1JfVVNVQVJJT19DUklBUiBST0xFX0FETUlOSVNUUkFET1JfVVNVQVJJT19BVFVBTElaQVIgUk9MRV9BRE1JTklTVFJBRE9SX1VTVUFSSU9fVklTVUFMSVpBUiBST0xFX0FETUlOSVNUUkFET1JfVVNVQVJJT19ERVNBVElWQVIgUk9MRV9BRE1JTklTVFJBRE9SX1VTVUFSSU9fR0VSRU5DSUFSX1BFUkZJTCBGQUNUT1JfUEFTU1dPUkQifQ.guQ380fhxKHAoISZzfGFLhfkZgXyUDy3edCb8oVsUAEucze41i1oTOdk2Lz-9hG23hb3x7mAzyHd7jKsym7YYLKsflk0MMNMnEay-4Zl1pYJcA-avCLe4qzA9smuSsFlWWmogFsnIa0ckA2PRaLLPKAlIt_pz2tPlvH8Uol1kaZmOw70P4rABJyul2Z4Edzz1_M-wmQ6PfNd26qb99gxkq5Acj7Gbfn6zYmPZfYp8Sua4eLo_iiIjisuIkEqpEyFkWdDgobp63IgaYmk3IZwIFCKHOZECtl008DzIHNzpfDHQzCSOKxfo_7IHCsB9zR4w2SDtcTbBU94WcRT67kVuQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/usuario?page=1&size=10",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "usuario"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuario por ID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJwYWNpZW50ZSIsImV4cCI6MTc4OTcwNzMwMCwiaWF0IjoxNzg5NzAzNzAwLCJzY29wZSI6IlVTVUFSSU9fQVRVQUxJWkFSIFVTVUFSSU9fQVRVQUxJWkFSX1NFTkhBIFVTVUFSSU9fVklTVUFMSVpBUiBBR0VOREFNRU5UT19WSVpVQUxJWkFSIEZBQ1RPUl9QQVNTV09SRCJ9.fsRKGDhmWoppmARdTXIcVMF1Ya3srb_kkK3UoR7y6rq8GJzGQ9H6z4u8TxHm9dj7KpX4GZvD0hw0q7HiA-y0KV5LIYoJvxkkluhJgECiX4fBOZrLzTEmUW5hB4qQaZEcKeWa8PyTEpfotetqLt4PTbUZ1RRRHT8xbfceCuJZ9BFwhORz0krOswMIgLWcK-AnPrnbsP3VC1NMc1wafbkaUEDCR-iLjfH3q09KC9hK2W3ipCzB6LKLZdmZYavqfQ2gvRUO__YgfbdpGN555TTGv10Q3Ch693OIaK6BevzBYUwkT69sar4p1W0_mLaUgMfwCdw5aTz9pSscx89AuAzgWg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/usuario/51586a2c-a636-4f72-8536-a440e7fbc43a",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "usuario",
+                "51586a2c-a636-4f72-8536-a440e7fbc43a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuario por Email",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJhZG1pbiIsImV4cCI6MTc4OTcwNDI2OCwiaWF0IjoxNzg5NzAwNjY4LCJzY29wZSI6IlVTVUFSSU9fQVRVQUxJWkFSIFVTVUFSSU9fQVRVQUxJWkFSX1NFTkhBIFVTVUFSSU9fVklTVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fQ1JJQVIgQURNSU5JU1RSQURPUl9VU1VBUklPX0FUVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fVklTVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fREVTQVRJVkFSIEFETUlOSVNUUkFET1JfVVNVQVJJT19HRVJFTkNJQVJfUEVSRklMIEZBQ1RPUl9QQVNTV09SRCJ9.acZPfPgrzcaBEC0IzGAydkNaDVAbOebTNLjhFTre2cYtLU7kWeZuInJHtqWlvLWF4IczAn0kjBemr-QjC9MGenQFMVW5cyXAL9HrkYcGLFssjWtCJQ9cFgzozy0s5W-dUbnP0ihs4dhTs6a-q2iDjBWq6ozd6kDNwj1bl9ok3H2Hq6mb7me2bfOECWiL59_I4aML87iHOxOab2b37pR05FKf3i6TtFET-g0txnYrxlNfMVt_y9nU9LkPaU-7EhpNgMMJHo1PSn_AmjlV7t9YfrdcDvC45-qRb5MghGVVG9njxK4W3hY-Gq4Eyc4WrqjFpwhWFQxVJTpm_ltDOcx6aQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/usuario/email?email=admin@example.com",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "usuario",
+                "email"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuario por Nome",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJhZG1pbiIsImV4cCI6MTc4OTcwNDI2OCwiaWF0IjoxNzg5NzAwNjY4LCJzY29wZSI6IlVTVUFSSU9fQVRVQUxJWkFSIFVTVUFSSU9fQVRVQUxJWkFSX1NFTkhBIFVTVUFSSU9fVklTVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fQ1JJQVIgQURNSU5JU1RSQURPUl9VU1VBUklPX0FUVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fVklTVUFMSVpBUiBBRE1JTklTVFJBRE9SX1VTVUFSSU9fREVTQVRJVkFSIEFETUlOSVNUUkFET1JfVVNVQVJJT19HRVJFTkNJQVJfUEVSRklMIEZBQ1RPUl9QQVNTV09SRCJ9.acZPfPgrzcaBEC0IzGAydkNaDVAbOebTNLjhFTre2cYtLU7kWeZuInJHtqWlvLWF4IczAn0kjBemr-QjC9MGenQFMVW5cyXAL9HrkYcGLFssjWtCJQ9cFgzozy0s5W-dUbnP0ihs4dhTs6a-q2iDjBWq6ozd6kDNwj1bl9ok3H2Hq6mb7me2bfOECWiL59_I4aML87iHOxOab2b37pR05FKf3i6TtFET-g0txnYrxlNfMVt_y9nU9LkPaU-7EhpNgMMJHo1PSn_AmjlV7t9YfrdcDvC45-qRb5MghGVVG9njxK4W3hY-Gq4Eyc4WrqjFpwhWFQxVJTpm_ltDOcx6aQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/usuario/nome?nome=Administrador",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "usuario",
+                "nome"
+              ],
+              "query": [
+                {
+                  "key": "nome",
+                  "value": "Administrador"
+                }
+              ]
+            }
+          },
           "response": []
         },
         {
@@ -97,7 +345,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nome\": \"Teste Usuário\",\r\n    \"email\": \"usuario@teste.com\",\r\n    \"login\": \"teste1\",\r\n    \"senha\": \"teste123\"\r\n}",
+              "raw": "{\r\n    \"nome\": \"Teste Usuário\",\r\n    \"email\": \"usuario@teste.com\",\r\n    \"login\": \"teste\",\r\n    \"senha\": \"teste123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -181,6 +429,36 @@
           "response": []
         },
         {
+          "name": "Atualizar Usuário Senha",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senhaAtual\": \"teste123\",\r\n    \"novaSenha\": \"teste1234\",\r\n    \"confirmarSenha\": \"teste1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar/senha",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "atualizar",
+                "senha"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Atualizar Usuário Admin",
           "request": {
             "method": "PATCH",
@@ -240,36 +518,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "Atualizar Usuário Senha",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"login\": \"teste\",\r\n    \"senhaAtual\": \"teste123\",\r\n    \"novaSenha\": \"teste1234\",\r\n    \"confirmarSenha\": \"teste1234\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "localhost:8091/gerenciar-usuarios/v1/atualizar/senha",
-              "host": [
-                "localhost"
-              ],
-              "port": "8091",
-              "path": [
-                "gerenciar-usuarios",
-                "v1",
-                "atualizar",
-                "senha"
-              ]
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -310,10 +558,20 @@
         {
           "name": "Visualizar Agendamento",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJlbmZlcm1laXJvIiwiZXhwIjoxNzg5Nzc3NjgxLCJpYXQiOjE3ODk3NzQwODEsInNjb3BlIjoiVVNVQVJJT19BVFVBTElaQVIgVVNVQVJJT19BVFVBTElaQVJfU0VOSEEgVVNVQVJJT19WSVNVQUxJWkFSIEFHRU5EQU1FTlRPX0NSSUFSIEFHRU5EQU1FTlRPX1ZJWlVBTElaQVIgRkFDVE9SX1BBU1NXT1JEIn0.EMlEbSfjl1K-FXSBXZ47iCHpmOtlZ5Ib4SW4IZK6Lktggk16ijoay_YA21oX8eyg4OHULhwbL0a4TS-1nc6tOVjLTcpKMRZdK0RWU8mLlUoIVfBO6NzFLdXSeCuME_i-xq2-q9bmpu5dPl9qeul82xhceEGjXW0JGxJqTR8XZ6eVjDmbuFlCWHqOqT5caN9zlSAmcal9pKYGDwi2GdqzN5RzbY3bArLZwgdzJevdpQ6s2Dg-2wjIHNsvpBLgH6ZzHIDfTdvY2HlHFfHgMLzwBHI1qLc3t2o1ZsRfHTShU7wvgvQjg1ByJdKuTo7FOlFpbH8peZi2PHle-jq962ffIQ",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/agendamento/8d4bdf5a-35e1-45ab-9cad-7ff517e7f567",
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/agendamento?page=1&size=10",
               "host": [
                 "localhost"
               ],
@@ -322,14 +580,70 @@
                 "gerenciar-usuarios",
                 "v1",
                 "visualizar",
-                "agendamento",
-                "8d4bdf5a-35e1-45ab-9cad-7ff517e7f567"
+                "agendamento"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Visualizar Agendamento Por ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJob3NwaXRhbG1hbmFnZXItYXBpand0b2F1dGgiLCJzdWIiOiJlbmZlcm1laXJvIiwiZXhwIjoxNzg5Nzc3NjgxLCJpYXQiOjE3ODk3NzQwODEsInNjb3BlIjoiVVNVQVJJT19BVFVBTElaQVIgVVNVQVJJT19BVFVBTElaQVJfU0VOSEEgVVNVQVJJT19WSVNVQUxJWkFSIEFHRU5EQU1FTlRPX0NSSUFSIEFHRU5EQU1FTlRPX1ZJWlVBTElaQVIgRkFDVE9SX1BBU1NXT1JEIn0.EMlEbSfjl1K-FXSBXZ47iCHpmOtlZ5Ib4SW4IZK6Lktggk16ijoay_YA21oX8eyg4OHULhwbL0a4TS-1nc6tOVjLTcpKMRZdK0RWU8mLlUoIVfBO6NzFLdXSeCuME_i-xq2-q9bmpu5dPl9qeul82xhceEGjXW0JGxJqTR8XZ6eVjDmbuFlCWHqOqT5caN9zlSAmcal9pKYGDwi2GdqzN5RzbY3bArLZwgdzJevdpQ6s2Dg-2wjIHNsvpBLgH6ZzHIDfTdvY2HlHFfHgMLzwBHI1qLc3t2o1ZsRfHTShU7wvgvQjg1ByJdKuTo7FOlFpbH8peZi2PHle-jq962ffIQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8091/gerenciar-usuarios/v1/visualizar/agendamento?page=1&size=10",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "gerenciar-usuarios",
+                "v1",
+                "visualizar",
+                "agendamento"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
               ]
             }
           },
           "response": []
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_01dy",
+      "secret": true
     }
   ]
 }

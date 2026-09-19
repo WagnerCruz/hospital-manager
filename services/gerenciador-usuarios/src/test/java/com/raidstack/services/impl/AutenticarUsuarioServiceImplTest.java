@@ -54,14 +54,14 @@ class AutenticarUsuarioServiceImplTest {
     @Test
     @DisplayName("Deve autenticar usuário com sucesso quando credenciais são válidas")
     void testAutenticarUsuarioSucesso() {
-        when(usuarioRepository.findUsuarioByLogin("login@test"))
+        when(usuarioRepository.findByLogin("login@test"))
                 .thenReturn(Optional.of(usuarioExistente));
         when(passwordEncoder.matches("senha123", usuarioExistente.getSenha()))
                 .thenReturn(true);
 
         assertDoesNotThrow(() -> autenticarUsuarioService.autenticarUsuario(autenticarDTO));
 
-        verify(usuarioRepository, times(1)).findUsuarioByLogin("login@test");
+        verify(usuarioRepository, times(1)).findByLogin("login@test");
         verify(passwordEncoder, times(1)).matches("senha123", usuarioExistente.getSenha());
     }
 
@@ -69,21 +69,21 @@ class AutenticarUsuarioServiceImplTest {
     @Test
     @DisplayName("Deve lançar ResourceNotFoundException quando usuário não existe")
     void testAutenticarUsuarioNaoEncontrado() {
-        when(usuarioRepository.findUsuarioByLogin("login@test"))
+        when(usuarioRepository.findByLogin("login@test"))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(ResourceNotFoundException.class)
                 .isThrownBy(() -> autenticarUsuarioService.autenticarUsuario(autenticarDTO))
                 .withMessageContaining("Usuário não encontrado");
 
-        verify(usuarioRepository, times(1)).findUsuarioByLogin("login@test");
+        verify(usuarioRepository, times(1)).findByLogin("login@test");
         verify(passwordEncoder, times(0)).matches(anyString(), anyString());
     }
 
     @Test
     @DisplayName("Deve lançar ResourceBadRequestException quando senha é inválida")
     void testAutenticarUsuarioSenhaInvalida() {
-        when(usuarioRepository.findUsuarioByLogin("login@test"))
+        when(usuarioRepository.findByLogin("login@test"))
                 .thenReturn(Optional.of(usuarioExistente));
         when(passwordEncoder.matches("senha123", usuarioExistente.getSenha()))
                 .thenReturn(false);
@@ -92,7 +92,7 @@ class AutenticarUsuarioServiceImplTest {
                 .isThrownBy(() -> autenticarUsuarioService.autenticarUsuario(autenticarDTO))
                 .withMessageContaining("Senha inválida");
 
-        verify(usuarioRepository, times(1)).findUsuarioByLogin("login@test");
+        verify(usuarioRepository, times(1)).findByLogin("login@test");
         verify(passwordEncoder, times(1)).matches("senha123", usuarioExistente.getSenha());
     }
 
@@ -101,7 +101,7 @@ class AutenticarUsuarioServiceImplTest {
     @DisplayName("Deve lançar exceção quando login é nulo")
     void testAutenticarUsuarioLoginNulo() {
         AutenticarUsuarioDTO dtoComLoginNulo = new AutenticarUsuarioDTO(null, "senha123");
-        when(usuarioRepository.findUsuarioByLogin(null))
+        when(usuarioRepository.findByLogin(null))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(ResourceNotFoundException.class)
@@ -112,7 +112,7 @@ class AutenticarUsuarioServiceImplTest {
     @DisplayName("Deve lançar exceção quando senha é nula")
     void testAutenticarUsuarioSenhaNula() {
         AutenticarUsuarioDTO dtoComSenhaNula = new AutenticarUsuarioDTO("login@test", null);
-        when(usuarioRepository.findUsuarioByLogin("login@test"))
+        when(usuarioRepository.findByLogin("login@test"))
                 .thenReturn(Optional.of(usuarioExistente));
         when(passwordEncoder.matches(null, usuarioExistente.getSenha()))
                 .thenReturn(false);
